@@ -1,8 +1,8 @@
 package com.example.meosasshu.service;
 
 
-import com.example.meosasshu.dto.request.SignupReqDto;
-import com.example.meosasshu.dto.request.LoginReqDto;
+import com.example.meosasshu.dto.request.SignupReqDTO;
+import com.example.meosasshu.dto.request.LoginReqDTO;
 import com.example.meosasshu.entity.Account;
 import com.example.meosasshu.entity.Address;
 import com.example.meosasshu.entity.Authority;
@@ -33,7 +33,7 @@ public class AccountService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final RedisUtil redisUtil;
     @Transactional
-    public Long signup(SignupReqDto signupReqDto) {
+    public Long signup(SignupReqDTO signupReqDto) {
         if(accountRepository.findOneWithAuthoritiesByEmail(signupReqDto.getEmail()).isPresent()){
             throw new DuplicateNicknameException();
         }
@@ -52,7 +52,7 @@ public class AccountService {
     }
 
     @Transactional
-    public void login(LoginReqDto loginReqDto, HttpServletResponse response) {
+    public void login(LoginReqDTO loginReqDto, HttpServletResponse response) {
 
         Account account = accountRepository.findOneWithAuthoritiesByEmail(loginReqDto.getEmail()).orElseThrow(
                 () -> new RuntimeException("Not found Account")

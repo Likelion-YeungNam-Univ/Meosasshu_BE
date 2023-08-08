@@ -1,7 +1,7 @@
 package com.example.meosasshu.service;
 
 
-import com.example.meosasshu.dto.request.SignupReqDto;
+import com.example.meosasshu.dto.request.SignupReqDTO;
 import com.example.meosasshu.entity.Account;
 import com.example.meosasshu.repository.AccountRepository;
 import jakarta.transaction.Transactional;
@@ -17,20 +17,20 @@ import java.util.List;
 public class AdminService {
     private final AccountRepository accountRepository;
 
-    public List<SignupReqDto> getAllUsers() {
+    public List<SignupReqDTO> getAllUsers() {
         List<Account> accounts = accountRepository.findAll();
-        List<SignupReqDto> accountDtos = new ArrayList<>(accounts.size());
+        List<SignupReqDTO> accountDtos = new ArrayList<>(accounts.size());
         for(Account account: accounts){
-            accountDtos.add(new SignupReqDto(account));
+            accountDtos.add(new SignupReqDTO(account));
         }
         return accountDtos;
     }
 
-    public SignupReqDto getAccountDtoByAccountId(Long accountId) {
+    public SignupReqDTO getAccountDtoByAccountId(Long accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow(
                 ()->new RuntimeException("Invalid accountId: "+accountId)
         );
-        return new SignupReqDto(account);
+        return new SignupReqDTO(account);
     }
 
     public void assignAdminRole(Long accountId) {

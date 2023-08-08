@@ -2,11 +2,12 @@ package com.example.meosasshu.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity @Getter
 public class Review extends BaseEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="review_id")
@@ -31,7 +32,7 @@ public class Review extends BaseEntity{
     @JoinTable(
             name = "review_keyword",
             joinColumns = {@JoinColumn(name = "review_id", referencedColumnName = "review_id")},
-            inverseJoinColumns = {@JoinColumn(name = "keyword", referencedColumnName = "keyword")})
+            inverseJoinColumns = {@JoinColumn(name = "keyword_name", referencedColumnName = "keyword_name")})
     private List<Keyword> selectedKeywords = new ArrayList<>();
 
 }

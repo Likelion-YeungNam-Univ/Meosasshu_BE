@@ -1,7 +1,7 @@
 package com.example.meosasshu.controller;
 
-import com.example.meosasshu.dto.request.SignupReqDto;
-import com.example.meosasshu.dto.request.LoginReqDto;
+import com.example.meosasshu.dto.request.SignupReqDTO;
+import com.example.meosasshu.dto.request.LoginReqDTO;
 import com.example.meosasshu.entity.Account;
 import com.example.meosasshu.security.jwt.TokenDto;
 import com.example.meosasshu.security.user.CurrentUser;
@@ -29,18 +29,18 @@ public class AuthController {
     private final AccountService accountService;
 
     @PostMapping("/register")
-    public ResponseEntity<Long> register(@RequestBody @Valid SignupReqDto signupReqDto) {
+    public ResponseEntity<Long> register(@RequestBody @Valid SignupReqDTO signupReqDto) {
         Long accountId= accountService.signup(signupReqDto);
         return ResponseEntity.ok(accountId);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginReqDto loginReqDto, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginReqDTO loginReqDto, HttpServletResponse response) {
         accountService.login(loginReqDto, response);
         return new ResponseEntity<>("로그인 성공",HttpStatus.OK);
     }
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<String> logout(@CurrentUser UserDetailsImpl userDetails, @RequestBody TokenDto tokenDto){
         return ResponseEntity.ok(accountService.logout(tokenDto.getAccessToken(),userDetails.getAccount()));
     }

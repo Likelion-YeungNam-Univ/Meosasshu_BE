@@ -1,7 +1,7 @@
 package com.example.meosasshu.controller;
 
 
-import com.example.meosasshu.dto.request.SignupReqDto;
+import com.example.meosasshu.dto.request.SignupReqDTO;
 import com.example.meosasshu.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,15 +25,15 @@ public class AdminController {
 
     @GetMapping("/getAllUsers")
     @Secured("ROLE_ADMIN")
-    ResponseEntity<List<SignupReqDto>> getAllUsers(){
-        List<SignupReqDto> accountDtos = adminService.getAllUsers();
+    ResponseEntity<List<SignupReqDTO>> getAllUsers(){
+        List<SignupReqDTO> accountDtos = adminService.getAllUsers();
         return ResponseEntity.ok(accountDtos);
     }
 
     @GetMapping("/account/{accountId}")
     @Secured("ROLE_ADMIN")
-    ResponseEntity<SignupReqDto> getAccount(@PathVariable Long accountId){
-        SignupReqDto accountDto = adminService.getAccountDtoByAccountId(accountId);
+    ResponseEntity<SignupReqDTO> getAccount(@PathVariable Long accountId){
+        SignupReqDTO accountDto = adminService.getAccountDtoByAccountId(accountId);
         return ResponseEntity.ok(accountDto);
     }
 

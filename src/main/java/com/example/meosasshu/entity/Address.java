@@ -1,6 +1,6 @@
 package com.example.meosasshu.entity;
 
-import com.example.meosasshu.dto.request.SignupReqDto;
+import com.example.meosasshu.dto.request.SignupReqDTO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class Address extends BaseEntity{
         super();
     }
 
-    public Address(SignupReqDto signupReqDto) {
+    public Address(SignupReqDTO signupReqDto) {
         this.city = signupReqDto.getCity();
         this.street = signupReqDto.getStreet();
         this.zipcode = signupReqDto.getZipcode();

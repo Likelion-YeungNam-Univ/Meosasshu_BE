@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class SignupReqDto {
+public class SignupReqDTO {
 
     @NotBlank
     private String nickname;
@@ -26,7 +26,7 @@ public class SignupReqDto {
     private String zipcode;
 
 
-    public SignupReqDto(Account account) {
+    public SignupReqDTO(Account account) {
         this.email=account.getEmail();
         this.nickname=account.getNickname();
 //        this.password=account.getPassword(); 패스워드는 외부로 보내지 않음

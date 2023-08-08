@@ -1,6 +1,6 @@
 package com.example.meosasshu.entity;
 
-import com.example.meosasshu.dto.request.SignupReqDto;
+import com.example.meosasshu.dto.request.SignupReqDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -47,7 +47,7 @@ public class Account {
     private Set<Authority> authorities;
 
 
-    public Account(SignupReqDto signupReqDto, Address address) {
+    public Account(SignupReqDTO signupReqDto, Address address) {
         this.email = signupReqDto.getEmail();
         this.password = signupReqDto.getPassword();
         this.nickname = signupReqDto.getNickname();
