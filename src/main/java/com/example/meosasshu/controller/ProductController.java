@@ -41,11 +41,18 @@ public class ProductController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/{productId}/reviews")
-    public ResponseEntity<Page<ReviewResDTO>> getProductReviews(@PathVariable Long productId,
-                @PageableDefault(sort = "id", size=10,direction = Sort.Direction.DESC) Pageable pageable){
+//    @GetMapping("/{productId}/reviews")
+//    public ResponseEntity<Page<ReviewResDTO>> getProductReviews(@PathVariable Long productId,
+//                @PageableDefault(sort = "id", size=10,direction = Sort.Direction.DESC) Pageable pageable){
+//
+//        Page<ReviewResDTO> dto = productService.getProductReviews(pageable,productId);
+//        return ResponseEntity.ok(dto);
+//    }
 
-        Page<ReviewResDTO> dto = productService.getProductReviews(pageable,productId);
+    @GetMapping("/top-sellers")
+    public ResponseEntity<Page<ProductPagingDTO>> getTopSellingProducts(
+            @PageableDefault(sort = "salesCount", size = 10, direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<ProductPagingDTO> dto = productService.getTopSellingProducts(pageable);
         return ResponseEntity.ok(dto);
     }
 

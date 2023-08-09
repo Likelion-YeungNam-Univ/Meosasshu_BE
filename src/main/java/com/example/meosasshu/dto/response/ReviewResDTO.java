@@ -18,23 +18,5 @@ public class ReviewResDTO {
     private List<String> selectedKeywords; // 선택된 키워드 목록
     private String imageUrl; // 등록한 이미지 URL
 
-
-    public static ReviewResDTO createDto(Review review) {
-        ReviewResDTO dto = new ReviewResDTO();
-        dto.setId(review.getId());
-        dto.setComment(review.getComment());
-        dto.setAuthorName(review.getAuthor().getNickname());
-        dto.setImageUrl("예시 파일경로");
-
-        List<String> selectedKeywords = new ArrayList<>();
-
-        for(Keyword keyword: review.getSelectedKeywords()){
-            selectedKeywords.add(keyword.getKeywordName());
-        }
-
-        dto.setSelectedKeywords(selectedKeywords);
-
-        return dto;
-    }
 }
 

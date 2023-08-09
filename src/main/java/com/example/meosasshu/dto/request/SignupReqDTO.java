@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class SignupReqDTO {
 
     @NotBlank
-    private String nickname;
+    private String name;
     @NotBlank
     private String email;
     @NotBlank
@@ -28,7 +28,7 @@ public class SignupReqDTO {
 
     public SignupReqDTO(Account account) {
         this.email=account.getEmail();
-        this.nickname=account.getNickname();
+        this.name =account.getName();
 //        this.password=account.getPassword(); 패스워드는 외부로 보내지 않음
     }
 
