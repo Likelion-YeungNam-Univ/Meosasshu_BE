@@ -30,14 +30,22 @@ public class Product extends BaseEntity{
     @JoinColumn(name="category_id")
     private Category category;
 
+    private Long salesCount;
+
     /**
      * 비즈니스 로직
      * */
     @Transactional
-    public void removeStock(Long quantity) {
-        if(this.getStockQuantity()-quantity<0){
+    public void order(Long quantity) {
+        checkSufficientStock(quantity);
+        this.stockQuantity-=quantity;
+        this.salesCount+=quantity;
+    }
+
+    public void checkSufficientStock(Long quantity) {
+        if(this.getStockQuantity()<quantity)
+        {
             throw new RuntimeException("재고가 부족합니다.");
         }
-        this.stockQuantity-=quantity;
     }
 }

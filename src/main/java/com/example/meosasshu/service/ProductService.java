@@ -27,6 +27,7 @@ public class ProductService {
     public ProductDetailDTO getProductById(Long productId) {
         return productRepository.findById(productId).map(ProductDetailDTO::createDto).orElseThrow(
                 ProductNotExistException::new);
+
     }
 
     public OrderFormResDTO getOrderForm(Long productId, Long quantity) {
@@ -38,7 +39,7 @@ public class ProductService {
 
         OrderProductDTO orderProductDTO = OrderProductDTO.createDto(product);
 
-//        product.removeStock(quantity);
+        product.checkSufficientStock(quantity);
 
         orderProductDTO.setQuantity(quantity);
         orderProductDTO.setTotalPrice(quantity*product.getPrice());
@@ -46,7 +47,11 @@ public class ProductService {
         return OrderFormResDTO.createDto(List.of(orderProductDTO));
     }
 
-    public Page<ReviewResDTO> getProductReviews(Pageable pageable, Long productId) {
-        return reviewRepository.findAllByProductId(productId,pageable).map(ReviewResDTO::createDto);
+//    public Page<ReviewResDTO> getProductReviews(Pageable pageable, Long productId) {
+//        return reviewRepository.findAllByProductId(productId,pageable).map(ReviewResDTO::createDto);
+//    }
+
+    public Page<ProductPagingDTO> getTopSellingProducts(Pageable pageable) {
+        return  productRepository.findAllByOrderBySalesCountDesc(pageable).map(ProductPagingDTO::createDto);
     }
 }

@@ -23,7 +23,7 @@ public class Account {
     private Long id;
 
     @NotBlank
-    private String nickname;
+    private String name;
 
     @NotBlank
     private String email;
@@ -50,7 +50,7 @@ public class Account {
     public Account(SignupReqDTO signupReqDto, Address address) {
         this.email = signupReqDto.getEmail();
         this.password = signupReqDto.getPassword();
-        this.nickname = signupReqDto.getNickname();
+        this.name = signupReqDto.getName();
 
         this.mobileNumber=signupReqDto.getMobileNumber();
 
