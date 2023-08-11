@@ -61,4 +61,13 @@ public class ReviewController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_USER")
+    @GetMapping("/reviews")
+    public ResponseEntity<Page<ReviewResDTO>> getReviewsByAuthorId(
+            @CurrentUser UserDetailsImpl userDetails,
+            @PageableDefault(sort = "id", size=10,direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<ReviewResDTO> dto = reviewService.getReviewsByAuthorId(pageable, userDetails.getAccount().getId());
+        return ResponseEntity.ok(dto);
+    }
+
 }

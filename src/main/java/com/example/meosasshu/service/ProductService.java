@@ -35,21 +35,12 @@ public class ProductService {
                 ProductNotExistException::new
         );
 
-
-
-        OrderProductDTO orderProductDTO = OrderProductDTO.createDto(product);
-
         product.checkSufficientStock(quantity);
-
-        orderProductDTO.setQuantity(quantity);
-        orderProductDTO.setTotalPrice(quantity*product.getPrice());
+        OrderProductDTO orderProductDTO = OrderProductDTO.createDto(product,quantity);
 
         return OrderFormResDTO.createDto(List.of(orderProductDTO));
     }
 
-//    public Page<ReviewResDTO> getProductReviews(Pageable pageable, Long productId) {
-//        return reviewRepository.findAllByProductId(productId,pageable).map(ReviewResDTO::createDto);
-//    }
 
     public Page<ProductPagingDTO> getTopSellingProducts(Pageable pageable) {
         return  productRepository.findAllByOrderBySalesCountDesc(pageable).map(ProductPagingDTO::createDto);

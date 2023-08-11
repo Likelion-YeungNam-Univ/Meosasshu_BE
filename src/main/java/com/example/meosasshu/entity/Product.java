@@ -48,4 +48,9 @@ public class Product extends BaseEntity{
             throw new RuntimeException("재고가 부족합니다.");
         }
     }
+
+    public void cancel(long quantity) {
+        this.stockQuantity+=quantity;
+        this.salesCount-=quantity;
+    }
 }

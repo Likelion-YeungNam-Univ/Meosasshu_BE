@@ -142,4 +142,8 @@ public class ReviewService {
         );
         return convertToDto(review);
     }
+
+    public Page<ReviewResDTO> getReviewsByAuthorId(Pageable pageable, Long id) {
+        return reviewRepository.findAllByAuthorId(id,pageable).map(this::convertToDto);
+    }
 }
