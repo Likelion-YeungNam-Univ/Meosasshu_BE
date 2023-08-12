@@ -23,6 +23,8 @@ public class Product extends BaseEntity{
     private String descriptionImage;
 
     private Long stockQuantity;
+
+    @Column(length = 500)
     private String description;
     private String shortDescription;
 
