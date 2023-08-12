@@ -1,4 +1,4 @@
-package com.example.meosasshu.security.user;
+package com.example.meosasshu.common.security.user;
 
 
 import com.example.meosasshu.entity.Account;

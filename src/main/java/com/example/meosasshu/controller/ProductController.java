@@ -35,19 +35,11 @@ public class ProductController {
     }
 
     @Secured("ROLE_USER")
-    @GetMapping("/{productId}/order")
+    @GetMapping("/{productId}/order-form")
     public ResponseEntity<OrderFormResDTO> getOrderForm(@PathVariable Long productId, @RequestParam Long quantity){
         OrderFormResDTO dto = productService.getOrderForm(productId,quantity);
         return ResponseEntity.ok(dto);
     }
-
-//    @GetMapping("/{productId}/reviews")
-//    public ResponseEntity<Page<ReviewResDTO>> getProductReviews(@PathVariable Long productId,
-//                @PageableDefault(sort = "id", size=10,direction = Sort.Direction.DESC) Pageable pageable){
-//
-//        Page<ReviewResDTO> dto = productService.getProductReviews(pageable,productId);
-//        return ResponseEntity.ok(dto);
-//    }
 
     @GetMapping("/top-sellers")
     public ResponseEntity<Page<ProductPagingDTO>> getTopSellingProducts(

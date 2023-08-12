@@ -2,8 +2,8 @@ package com.example.meosasshu.controller;
 
 import com.example.meosasshu.dto.request.ReviewCreationDTO;
 import com.example.meosasshu.dto.response.ReviewResDTO;
-import com.example.meosasshu.security.user.CurrentUser;
-import com.example.meosasshu.security.user.UserDetailsImpl;
+import com.example.meosasshu.common.security.user.CurrentUser;
+import com.example.meosasshu.common.security.user.UserDetailsImpl;
 import com.example.meosasshu.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

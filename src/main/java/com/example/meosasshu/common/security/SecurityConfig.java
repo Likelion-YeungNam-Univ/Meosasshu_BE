@@ -1,7 +1,7 @@
-package com.example.meosasshu.security;
+package com.example.meosasshu.common.security;
 
-import com.example.meosasshu.security.jwt.JwtAuthFilter;
-import com.example.meosasshu.security.jwt.JwtUtil;
+import com.example.meosasshu.common.security.jwt.JwtAuthFilter;
+import com.example.meosasshu.common.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -2,8 +2,8 @@ package com.example.meosasshu.controller;
 
 import com.example.meosasshu.dto.request.CreateOrderReqDTO;
 import com.example.meosasshu.dto.response.OrderResDTO;
-import com.example.meosasshu.security.user.CurrentUser;
-import com.example.meosasshu.security.user.UserDetailsImpl;
+import com.example.meosasshu.common.security.user.CurrentUser;
+import com.example.meosasshu.common.security.user.UserDetailsImpl;
 import com.example.meosasshu.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
