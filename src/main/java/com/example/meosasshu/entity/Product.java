@@ -23,6 +23,8 @@ public class Product extends BaseEntity{
     private String descriptionImage;
 
     private Long stockQuantity;
+
+    @Column(length = 500)
     private String description;
     private String shortDescription;
 
@@ -47,5 +49,10 @@ public class Product extends BaseEntity{
         {
             throw new RuntimeException("재고가 부족합니다.");
         }
+    }
+
+    public void cancel(long quantity) {
+        this.stockQuantity+=quantity;
+        this.salesCount-=quantity;
     }
 }

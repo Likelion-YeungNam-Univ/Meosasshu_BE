@@ -1,4 +1,4 @@
-package com.example.meosasshu.file;
+package com.example.meosasshu.common.file;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

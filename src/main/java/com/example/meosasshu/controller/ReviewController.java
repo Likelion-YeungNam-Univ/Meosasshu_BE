@@ -2,8 +2,8 @@ package com.example.meosasshu.controller;
 
 import com.example.meosasshu.dto.request.ReviewCreationDTO;
 import com.example.meosasshu.dto.response.ReviewResDTO;
-import com.example.meosasshu.security.user.CurrentUser;
-import com.example.meosasshu.security.user.UserDetailsImpl;
+import com.example.meosasshu.common.security.user.CurrentUser;
+import com.example.meosasshu.common.security.user.UserDetailsImpl;
 import com.example.meosasshu.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -59,6 +59,15 @@ public class ReviewController {
     public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId, @CurrentUser UserDetailsImpl userDetails) {
         reviewService.deleteReview(reviewId,userDetails);
         return ResponseEntity.noContent().build();
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("/reviews")
+    public ResponseEntity<Page<ReviewResDTO>> getReviewsByAuthorId(
+            @CurrentUser UserDetailsImpl userDetails,
+            @PageableDefault(sort = "id", size=10,direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<ReviewResDTO> dto = reviewService.getReviewsByAuthorId(pageable, userDetails.getAccount().getId());
+        return ResponseEntity.ok(dto);
     }
 
 }

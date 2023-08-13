@@ -1,4 +1,4 @@
-package com.example.meosasshu.redis;
+package com.example.meosasshu.common.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

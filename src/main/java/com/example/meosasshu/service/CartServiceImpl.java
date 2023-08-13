@@ -12,7 +12,7 @@ import com.example.meosasshu.repository.AccountRepository;
 import com.example.meosasshu.repository.CartProductRepository;
 import com.example.meosasshu.repository.CartRepository;
 import com.example.meosasshu.repository.ProductRepository;
-import com.example.meosasshu.security.jwt.JwtUtil;
+import com.example.meosasshu.common.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

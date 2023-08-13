@@ -18,23 +18,23 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping
-    public ResponseEntity<String> addToCart(@RequestHeader("access_token") String accessToken,
-                                            @RequestHeader("refresh_token") String refreshToken,
+    public ResponseEntity<String> addToCart(@RequestHeader("accessToken") String accessToken,
+                                            @RequestHeader("refreshToken") String refreshToken,
                                             @RequestBody CartItemReqDTO cartItemRequest) {
         cartService.addToCart(accessToken, refreshToken, cartItemRequest);
         return ResponseEntity.created(null).body("장바구니에 추가되었습니다.");
     }
 
     @GetMapping
-    public ResponseEntity<List<CartItemResDTO>> getCartItems(@RequestHeader("access_token") String accessToken,
-                                                             @RequestHeader("refresh_token") String refreshToken) {
+    public ResponseEntity<List<CartItemResDTO>> getCartItems(@RequestHeader("accessToken") String accessToken,
+                                                             @RequestHeader("refreshToken") String refreshToken) {
         List<CartItemResDTO> cartItems = cartService.getCartItems(accessToken, refreshToken);
         return ResponseEntity.ok(cartItems);
     }
 
     @PutMapping("/items/{productId}")
-    public ResponseEntity<CartItemResDTO> updateCartItemQuantity(@RequestHeader("access_token") String accessToken,
-                                                                 @RequestHeader("refresh_token") String refreshToken,
+    public ResponseEntity<CartItemResDTO> updateCartItemQuantity(@RequestHeader("accessToken") String accessToken,
+                                                                 @RequestHeader("refreshToken") String refreshToken,
                                                                  @PathVariable Long productId,
                                                                  @RequestBody Map<String, Integer> requestBody) {
         int quantity = requestBody.get("quantity");
@@ -43,16 +43,16 @@ public class CartController {
     }
 
     @DeleteMapping("/items/{productId}")
-    public ResponseEntity<Void> removeCartItem(@RequestHeader("access_token") String accessToken,
-                                               @RequestHeader("refresh_token") String refreshToken,
+    public ResponseEntity<Void> removeCartItem(@RequestHeader("accessToken") String accessToken,
+                                               @RequestHeader("refreshToken") String refreshToken,
                                                @PathVariable Long productId) {
         cartService.removeCartItem(accessToken, refreshToken, productId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/order-form")
-    public ResponseEntity<OrderFormResDTO> getOrderForm(@RequestHeader("access_token") String accessToken,
-                                                        @RequestHeader("refresh_token") String refreshToken) {
+    public ResponseEntity<OrderFormResDTO> getOrderForm(@RequestHeader("accessToken") String accessToken,
+                                                        @RequestHeader("refreshToken") String refreshToken) {
         OrderFormResDTO orderForm = cartService.getOrderForm(accessToken, refreshToken);
         return ResponseEntity.ok(orderForm);
     }

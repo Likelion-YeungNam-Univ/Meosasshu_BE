@@ -1,4 +1,4 @@
-package com.example.meosasshu.security.user;
+package com.example.meosasshu.common.security.user;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

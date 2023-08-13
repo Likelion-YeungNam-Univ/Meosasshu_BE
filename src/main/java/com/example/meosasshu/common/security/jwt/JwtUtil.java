@@ -1,9 +1,9 @@
-package com.example.meosasshu.security.jwt;
+package com.example.meosasshu.common.security.jwt;
 
 
+import com.example.meosasshu.common.security.user.UserDetailsServiceImpl;
 import com.example.meosasshu.entity.Authority;
-import com.example.meosasshu.redis.RedisUtil;
-import com.example.meosasshu.security.user.UserDetailsServiceImpl;
+import com.example.meosasshu.common.redis.RedisUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

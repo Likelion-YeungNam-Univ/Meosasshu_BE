@@ -6,14 +6,14 @@ import com.example.meosasshu.entity.Keyword;
 import com.example.meosasshu.entity.Product;
 import com.example.meosasshu.entity.Review;
 import com.example.meosasshu.exception.ProductNotExistException;
-import com.example.meosasshu.file.File;
-import com.example.meosasshu.file.FileDto;
-import com.example.meosasshu.file.FileRepository;
-import com.example.meosasshu.file.FileService;
+import com.example.meosasshu.common.file.File;
+import com.example.meosasshu.common.file.FileDto;
+import com.example.meosasshu.common.file.FileRepository;
+import com.example.meosasshu.common.file.FileService;
 import com.example.meosasshu.repository.KeywordRepository;
 import com.example.meosasshu.repository.ProductRepository;
 import com.example.meosasshu.repository.ReviewRepository;
-import com.example.meosasshu.security.user.UserDetailsImpl;
+import com.example.meosasshu.common.security.user.UserDetailsImpl;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -141,5 +141,9 @@ public class ReviewService {
                 () -> new RuntimeException("리뷰가 존재하지 않음")
         );
         return convertToDto(review);
+    }
+
+    public Page<ReviewResDTO> getReviewsByAuthorId(Pageable pageable, Long id) {
+        return reviewRepository.findAllByAuthorId(id,pageable).map(this::convertToDto);
     }
 }

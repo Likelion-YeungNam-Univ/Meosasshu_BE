@@ -1,7 +1,6 @@
-package com.example.meosasshu.security.jwt;
+package com.example.meosasshu.common.security.jwt;
 
 
-import com.example.meosasshu.security.jwt.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

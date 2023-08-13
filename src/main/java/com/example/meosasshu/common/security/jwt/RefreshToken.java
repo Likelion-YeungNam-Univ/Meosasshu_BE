@@ -1,4 +1,4 @@
-package com.example.meosasshu.security.jwt;
+package com.example.meosasshu.common.security.jwt;
 
 
 import jakarta.persistence.*;

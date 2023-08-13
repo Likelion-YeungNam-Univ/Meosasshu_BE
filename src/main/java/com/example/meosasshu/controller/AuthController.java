@@ -3,10 +3,10 @@ package com.example.meosasshu.controller;
 import com.example.meosasshu.dto.request.SignupReqDTO;
 import com.example.meosasshu.dto.request.LoginReqDTO;
 import com.example.meosasshu.entity.Account;
-import com.example.meosasshu.security.jwt.TokenDto;
-import com.example.meosasshu.security.user.CurrentUser;
-import com.example.meosasshu.security.user.UserDetailsImpl;
-import com.example.meosasshu.service.AccountService;
+import com.example.meosasshu.common.security.jwt.TokenDto;
+import com.example.meosasshu.common.security.user.CurrentUser;
+import com.example.meosasshu.common.security.user.UserDetailsImpl;
+import com.example.meosasshu.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
-    private final AccountService accountService;
+    private final AuthService accountService;
 
     @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody @Valid SignupReqDTO signupReqDto) {
