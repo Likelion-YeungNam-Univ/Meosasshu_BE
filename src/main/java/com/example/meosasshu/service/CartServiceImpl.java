@@ -8,6 +8,9 @@ import com.example.meosasshu.entity.Account;
 import com.example.meosasshu.entity.Cart;
 import com.example.meosasshu.entity.CartProduct;
 import com.example.meosasshu.entity.Product;
+import com.example.meosasshu.exception.CartProductNotFoundException;
+import com.example.meosasshu.exception.ProductNotFoundException;
+import com.example.meosasshu.exception.UserNotFoundException;
 import com.example.meosasshu.repository.AccountRepository;
 import com.example.meosasshu.repository.CartProductRepository;
 import com.example.meosasshu.repository.CartRepository;
@@ -34,11 +37,11 @@ public class CartServiceImpl implements CartService {
     public void addToCart(String accessToken, String refreshToken, CartItemReqDTO cartItemRequest) {
         String email = jwtUtil.getEmailFromToken(accessToken);
         Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(UserNotFoundException::new);
         Cart cart = cartRepository.findByAccount(account).orElseGet(() -> createCart(account));
 
         Product product = productRepository.findById(cartItemRequest.getProductId())
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(ProductNotFoundException::new);
 
         CartProduct cartProduct = cartProductRepository.findByCartAndProduct(cart, product)
                 .orElseGet(() -> createCartProduct(cart, product));
@@ -50,7 +53,7 @@ public class CartServiceImpl implements CartService {
     public List<CartItemResDTO> getCartItems(String accessToken, String refreshToken) {
         String email = jwtUtil.getEmailFromToken(accessToken);
         Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(UserNotFoundException::new);
         Cart cart = cartRepository.findByAccount(account).orElseGet(() -> createCart(account));
 
         List<CartProduct> cartProducts = cartProductRepository.findByCart(cart);
@@ -67,11 +70,11 @@ public class CartServiceImpl implements CartService {
     public CartItemResDTO updateCartItemQuantity(String accessToken, String refreshToken, Long productId, int quantity) {
         String email = jwtUtil.getEmailFromToken(accessToken);
         Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(UserNotFoundException::new);
         Cart cart = cartRepository.findByAccount(account).orElseGet(() -> createCart(account));
 
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(ProductNotFoundException::new);
 
         CartProduct cartProduct = cartProductRepository.findByCartAndProduct(cart, product)
                 .orElseGet(() -> createCartProduct(cart, product));
@@ -85,15 +88,15 @@ public class CartServiceImpl implements CartService {
     public void removeCartItem(String accessToken, String refreshToken, Long productId) {
         String email = jwtUtil.getEmailFromToken(accessToken);
         Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(UserNotFoundException::new);
         Cart cart = cartRepository.findByAccount(account)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
+                .orElseGet(() -> createCart(account));
 
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(ProductNotFoundException::new);
 
         CartProduct cartProduct = cartProductRepository.findByCartAndProduct(cart, product)
-                .orElseThrow(() -> new RuntimeException("CartProduct not found"));
+                .orElseThrow(CartProductNotFoundException::new);
 
         cartProductRepository.delete(cartProduct);
     }
@@ -102,9 +105,9 @@ public class CartServiceImpl implements CartService {
     public OrderFormResDTO getOrderForm(String accessToken, String refreshToken) {
         String email = jwtUtil.getEmailFromToken(accessToken);
         Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(UserNotFoundException::new);
         Cart cart = cartRepository.findByAccount(account)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
+                .orElseGet(() -> createCart(account));
 
         List<CartProduct> cartProducts = cartProductRepository.findByCart(cart);
         List<OrderProductDTO> orderProductDTOs = new ArrayList<>();
