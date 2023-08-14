@@ -5,6 +5,7 @@ import com.example.meosasshu.dto.response.AccountResDTO;
 import com.example.meosasshu.dto.response.AddressResDTO;
 import com.example.meosasshu.entity.Account;
 import com.example.meosasshu.entity.Address;
+import com.example.meosasshu.exception.UserNotFoundException;
 import com.example.meosasshu.repository.AccountRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,21 +22,21 @@ public class AccountService {
 
     public AddressResDTO getAddress(Account account) {
         Account foundAccount = accountRepository.findOneWithAuthoritiesByEmail(account.getEmail()).orElseThrow(
-                () -> new RuntimeException("Not Found Account")
+                UserNotFoundException::new
         );
         return AddressResDTO.createDto(foundAccount.getAddress());
     }
 
     public AccountResDTO getProfile(Account account) {
         Account foundAccount = accountRepository.findOneWithAuthoritiesByEmail(account.getEmail()).orElseThrow(
-                () -> new RuntimeException("Not Found Account")
+                UserNotFoundException::new
         );
         return AccountResDTO.createDto(foundAccount);
     }
 
     public AccountResDTO updateProfile(SignupReqDTO reqDTO, Account account) {
         Account foundAccount = accountRepository.findOneWithAuthoritiesByEmail(account.getEmail()).orElseThrow(
-                () -> new RuntimeException("Not Found Account")
+                UserNotFoundException::new
         );
         //아래 메소드들은 null이 아닐때만 각각 실행되어야함
         if(reqDTO.getPassword()!=null) foundAccount.setPassword(reqDTO.getPassword());

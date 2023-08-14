@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Account {
+public class Account extends BaseEntity{
     @Id
     @Column(name="account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

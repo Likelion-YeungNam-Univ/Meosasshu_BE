@@ -1,11 +1,9 @@
 package com.example.meosasshu.service;
 
-import com.example.meosasshu.common.openai.ChatGPTConfig;
 import com.example.meosasshu.dto.response.*;
 import com.example.meosasshu.entity.Product;
-import com.example.meosasshu.exception.ProductNotExistException;
+import com.example.meosasshu.exception.ProductNotFoundException;
 import com.example.meosasshu.repository.ProductRepository;
-import com.example.meosasshu.repository.ReviewRepository;
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.completion.CompletionResult;
 import com.theokanning.openai.service.OpenAiService;
@@ -29,10 +27,9 @@ public class ProductService {
     }
 
     public ProductDetailDTO getProductById(Long productId) {
-//        return productRepository.findById(productId).map(ProductDetailDTO::createDto).orElseThrow(
-//                ProductNotExistException::new);
+
         Product product = productRepository.findById(productId).orElseThrow(
-                ProductNotExistException::new
+                ProductNotFoundException::new
         );
 
         String shortDescription = generateSimplifiedDescription(product.getDescription());
@@ -61,14 +58,11 @@ public class ProductService {
         );
 
         // ChatGPT 응답에서 요약된 텍스트 추출
-        String simplifiedText = completion.getChoices().get(0).getText();
-        return simplifiedText;
+        return completion.getChoices().get(0).getText();
     }
 
     public OrderFormResDTO getOrderForm(Long productId, Long quantity) {
-        Product product = productRepository.findById(productId).orElseThrow(
-                ProductNotExistException::new
-        );
+        Product product = productRepository.findById(productId).orElseThrow(ProductNotFoundException::new);
 
         product.checkSufficientStock(quantity);
         OrderProductDTO orderProductDTO = OrderProductDTO.createDto(product,quantity);

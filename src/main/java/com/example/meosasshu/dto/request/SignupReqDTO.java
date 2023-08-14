@@ -26,6 +26,7 @@ public class SignupReqDTO {
     private String zipcode;
 
 
+
     public SignupReqDTO(Account account) {
         this.email=account.getEmail();
         this.name =account.getName();

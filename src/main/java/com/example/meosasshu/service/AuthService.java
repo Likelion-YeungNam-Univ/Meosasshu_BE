@@ -9,6 +9,7 @@ import com.example.meosasshu.entity.Authority;
 import com.example.meosasshu.common.security.jwt.RefreshToken;
 import com.example.meosasshu.exception.DuplicateNicknameException;
 import com.example.meosasshu.common.redis.RedisUtil;
+import com.example.meosasshu.exception.UserNotFoundException;
 import com.example.meosasshu.repository.AccountRepository;
 import com.example.meosasshu.common.security.jwt.RefreshTokenRepository;
 import com.example.meosasshu.common.security.jwt.JwtUtil;
@@ -55,7 +56,7 @@ public class AuthService {
     public void login(LoginReqDTO loginReqDto, HttpServletResponse response) {
 
         Account account = accountRepository.findOneWithAuthoritiesByEmail(loginReqDto.getEmail()).orElseThrow(
-                () -> new RuntimeException("Not found Account")
+                UserNotFoundException::new
         );
 
         if(!passwordEncoder.matches(loginReqDto.getPassword(), account.getPassword())) {
