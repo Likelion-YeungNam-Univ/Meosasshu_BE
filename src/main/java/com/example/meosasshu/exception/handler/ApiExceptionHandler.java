@@ -59,6 +59,14 @@ public class ApiExceptionHandler {
         ApiException apiException = createApiException(ExceptionMessage.PERMISSION_DENIED_MESSAGE, httpStatus);
         return new ResponseEntity<>(apiException, httpStatus);
     }
+
+    @ExceptionHandler(value = {KeywordNotFoundException.class})
+    public ResponseEntity<Object> handleKeywordNotFoundException(KeywordNotFoundException e){
+        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+        ApiException apiException = createApiException(ExceptionMessage.KEYWORD_NOT_FOUND_MESSAGE, httpStatus);
+        return new ResponseEntity<>(apiException, httpStatus);
+    }
+
     private ApiException createApiException(String message, HttpStatus httpStatus) {
         return new ApiException(
                 message,

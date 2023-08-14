@@ -5,6 +5,7 @@ import com.example.meosasshu.dto.response.ReviewResDTO;
 import com.example.meosasshu.entity.Keyword;
 import com.example.meosasshu.entity.Product;
 import com.example.meosasshu.entity.Review;
+import com.example.meosasshu.exception.KeywordNotFoundException;
 import com.example.meosasshu.exception.PermissionDeniedException;
 import com.example.meosasshu.exception.ProductNotFoundException;
 import com.example.meosasshu.common.file.File;
@@ -113,7 +114,7 @@ public class ReviewService {
 
     private void convertStringListToKeywordList(List<String> stringList, List<Keyword> selectedKeywords) {
         for(String keyword: stringList){
-            Keyword entity = keywordRepository.findById(keyword).orElseThrow(ReviewNotFoundException::new);
+            Keyword entity = keywordRepository.findById(keyword).orElseThrow(KeywordNotFoundException::new);
             selectedKeywords.add(entity);
         }
     }
@@ -132,9 +133,7 @@ public class ReviewService {
 
 
     public ReviewResDTO getReviewById(Long reviewId) {
-        Review review = reviewRepository.findById(reviewId).orElseThrow(
-                ReviewNotFoundException::new
-        );
+        Review review = reviewRepository.findById(reviewId).orElseThrow(ReviewNotFoundException::new);
         return convertToDto(review);
     }
 

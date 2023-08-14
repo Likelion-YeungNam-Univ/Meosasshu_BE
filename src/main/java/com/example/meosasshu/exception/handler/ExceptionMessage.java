@@ -9,4 +9,6 @@ public class ExceptionMessage {
     public static final String PRODUCT_NOT_FOUND_MESSAGE = "Product does not exist.";
     public static final String CART_PRODUCT_NOT_FOUND_MESSAGE = "Cart product does not exist.";
     public static final String PERMISSION_DENIED_MESSAGE = "Permission denied.";
+
+    public static final String KEYWORD_NOT_FOUND_MESSAGE = "Keyword does not exist.";
 }
