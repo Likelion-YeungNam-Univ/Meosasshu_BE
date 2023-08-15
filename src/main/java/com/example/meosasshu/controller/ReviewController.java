@@ -40,7 +40,7 @@ public class ReviewController {
     @PostMapping("/products/{productId}/reviews")
     public ResponseEntity<Long> createReviewForProduct(
             @PathVariable Long productId,@CurrentUser UserDetailsImpl userDetails,
-            @ModelAttribute ReviewCreationDTO reviewCreateDTO) throws IOException, NoSuchAlgorithmException {
+            @RequestBody ReviewCreationDTO reviewCreateDTO) throws IOException, NoSuchAlgorithmException {
         Long reviewId = reviewService.createReviewForProduct(productId, reviewCreateDTO, userDetails);
         return ResponseEntity.ok(reviewId);
     }

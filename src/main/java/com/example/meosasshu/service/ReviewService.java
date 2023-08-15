@@ -113,6 +113,7 @@ public class ReviewService {
     }
 
     private void convertStringListToKeywordList(List<String> stringList, List<Keyword> selectedKeywords) {
+        if(stringList==null) return;
         for(String keyword: stringList){
             Keyword entity = keywordRepository.findById(keyword).orElseThrow(KeywordNotFoundException::new);
             selectedKeywords.add(entity);
