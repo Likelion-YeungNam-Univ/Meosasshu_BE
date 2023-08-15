@@ -3,6 +3,7 @@ package com.example.meosasshu.service;
 import com.example.meosasshu.dto.request.CreateOrderReqDTO;
 import com.example.meosasshu.dto.request.OrderProductReqDTO;
 import com.example.meosasshu.dto.response.OrderResDTO;
+import com.example.meosasshu.dto.response.ReviewFormResDTO;
 import com.example.meosasshu.entity.*;
 import com.example.meosasshu.exception.OrderNotFoundException;
 import com.example.meosasshu.exception.PermissionDeniedException;
@@ -56,5 +57,14 @@ public class OrderService {
 
     public Page<OrderResDTO> getOrders(Pageable pageable,Long accountId) {
         return orderRepository.findAllByAccountId(accountId,pageable).map(OrderResDTO::createDto);
+    }
+
+    public ReviewFormResDTO getReviewForm(Long orderId, Long productId, Account account) {
+        Order order = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        if(order.getAccount().getId() != account.getId()) {
+            throw new PermissionDeniedException();
+        }
+        OrderProduct orderProduct = order.getOrderProducts().stream().filter(op -> op.getProduct().getId() == productId).findFirst().orElseThrow(ProductNotFoundException::new);
+        return ReviewFormResDTO.createDto(orderProduct);
     }
 }

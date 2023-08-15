@@ -4,6 +4,7 @@ import com.example.meosasshu.dto.request.CreateOrderReqDTO;
 import com.example.meosasshu.dto.response.OrderResDTO;
 import com.example.meosasshu.common.security.user.CurrentUser;
 import com.example.meosasshu.common.security.user.UserDetailsImpl;
+import com.example.meosasshu.dto.response.ReviewFormResDTO;
 import com.example.meosasshu.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -48,6 +49,13 @@ public class OrderController {
             @CurrentUser UserDetailsImpl userDetails,
             @PageableDefault(sort = "id", size=10,direction = Sort.Direction.DESC) Pageable pageable) {
         Page<OrderResDTO> dto = orderService.getOrders(pageable, userDetails.getAccount().getId());
+        return ResponseEntity.ok(dto);
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("{orderId}/products/{productId}/review-form")
+    public ResponseEntity<ReviewFormResDTO> getReviewForm(@PathVariable Long orderId, @PathVariable Long productId, @CurrentUser UserDetailsImpl userDetails) {
+        ReviewFormResDTO dto = orderService.getReviewForm(orderId, productId, userDetails.getAccount());
         return ResponseEntity.ok(dto);
     }
 }
