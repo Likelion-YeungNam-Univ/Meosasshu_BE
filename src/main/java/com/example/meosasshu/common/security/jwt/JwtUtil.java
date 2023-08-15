@@ -151,11 +151,11 @@ public class JwtUtil {
         return new UsernamePasswordAuthenticationToken(userDetails, token, authorities);
     }
     public void setHeaderAccessToken(HttpServletResponse response, String accessToken) {
-        response.setHeader("Access_Token", accessToken);
+        response.setHeader(ACCESS_TOKEN, accessToken);
     }
 
     public void setHeaderRefreshToken(HttpServletResponse response, String refreshToken) {
-        response.setHeader("Refresh_Token", refreshToken);
+        response.setHeader(REFRESH_TOKEN, refreshToken);
     }
 
 
