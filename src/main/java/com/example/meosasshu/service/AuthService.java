@@ -1,19 +1,19 @@
 package com.example.meosasshu.service;
 
 
-import com.example.meosasshu.dto.request.SignupReqDTO;
+import com.example.meosasshu.common.redis.RedisUtil;
+import com.example.meosasshu.common.security.jwt.JwtUtil;
+import com.example.meosasshu.common.security.jwt.RefreshToken;
+import com.example.meosasshu.common.security.jwt.RefreshTokenRepository;
+import com.example.meosasshu.common.security.jwt.TokenDto;
 import com.example.meosasshu.dto.request.LoginReqDTO;
+import com.example.meosasshu.dto.request.SignupReqDTO;
 import com.example.meosasshu.entity.Account;
 import com.example.meosasshu.entity.Address;
 import com.example.meosasshu.entity.Authority;
-import com.example.meosasshu.common.security.jwt.RefreshToken;
 import com.example.meosasshu.exception.DuplicateNicknameException;
-import com.example.meosasshu.common.redis.RedisUtil;
 import com.example.meosasshu.exception.UserNotFoundException;
 import com.example.meosasshu.repository.AccountRepository;
-import com.example.meosasshu.common.security.jwt.RefreshTokenRepository;
-import com.example.meosasshu.common.security.jwt.JwtUtil;
-import com.example.meosasshu.common.security.jwt.TokenDto;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +53,7 @@ public class AuthService {
     }
 
     @Transactional
-    public void login(LoginReqDTO loginReqDto, HttpServletResponse response) {
+    public TokenDto login(LoginReqDTO loginReqDto, HttpServletResponse response) {
 
         Account account = accountRepository.findOneWithAuthoritiesByEmail(loginReqDto.getEmail()).orElseThrow(
                 UserNotFoundException::new
@@ -75,7 +75,7 @@ public class AuthService {
         }
 
         setHeader(response, tokenDto);
-
+        return tokenDto;
     }
 
     private void setHeader(HttpServletResponse response, TokenDto tokenDto) {

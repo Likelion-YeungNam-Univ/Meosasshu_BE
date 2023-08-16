@@ -13,6 +13,7 @@ import java.util.List;
  * */
 @Getter @Setter
 public class OrderProductDTO {
+    private Long productId;
     private String productName;
     private String brand;
     private Long quantity;
@@ -21,6 +22,7 @@ public class OrderProductDTO {
 
     public static OrderProductDTO createDto(Product product, Long quantity) {
         OrderProductDTO dto = new OrderProductDTO();
+        dto.setProductId(product.getId());
         dto.setProductName(product.getName());
         dto.setBrand(product.getBrand());
         dto.setImageUrl(product.getThumbnail());
