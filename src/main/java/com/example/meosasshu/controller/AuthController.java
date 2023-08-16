@@ -35,9 +35,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginReqDTO loginReqDto, HttpServletResponse response) {
-        accountService.login(loginReqDto, response);
-        return new ResponseEntity<>("로그인 성공",HttpStatus.OK);
+    public ResponseEntity<TokenDto> login(@RequestBody @Valid LoginReqDTO loginReqDto, HttpServletResponse response) {
+        TokenDto dto = accountService.login(loginReqDto, response);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping("/logout")

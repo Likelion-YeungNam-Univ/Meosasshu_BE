@@ -39,6 +39,12 @@ public class JwtUtil {
     public static final String ACCESS_TOKEN = "accessToken";
     public static final String REFRESH_TOKEN = "refreshToken";
 
+    /**
+     * Bearer 토큰 헤더
+     * */
+//    public static final String AUTHORIZATION_HEADER = "Authorization";
+//    public static final String REFRESH_HEADER = "Refresh";
+
     private static final String AUTHORITIES_KEY = "authorities";
 
 
@@ -56,6 +62,18 @@ public class JwtUtil {
     public String getHeaderToken(HttpServletRequest request, String type) {
         return type.equals("Access") ? request.getHeader(ACCESS_TOKEN) :request.getHeader(REFRESH_TOKEN);
     }
+
+    /**
+     * Bearer 토큰 추출
+     * */
+//    String resolveToken(HttpServletRequest request, String header) {
+//        String bearerToken = request.getHeader(header);
+//        if (bearerToken != null && bearerToken.startsWith("Bearer-")) {
+//            return bearerToken.substring(7);
+//        }
+//        return null;
+//    }
+
 
     public TokenDto createAllToken(String email, Set<Authority> authorities) {
         return new TokenDto(createAccessToken(email, authorities), createRefreshToken(email,authorities));
