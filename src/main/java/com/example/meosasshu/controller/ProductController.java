@@ -48,4 +48,12 @@ public class ProductController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<ProductPagingDTO>> searchProducts(
+            @RequestParam String keyword,
+            @PageableDefault(sort = "id", size = 10, direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<ProductPagingDTO> dto = productService.searchProducts(keyword, pageable);
+        return ResponseEntity.ok(dto);
+    }
+
 }

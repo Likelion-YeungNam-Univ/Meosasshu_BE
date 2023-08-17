@@ -41,8 +41,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@CurrentUser UserDetailsImpl userDetails, @RequestBody TokenDto tokenDto){
-        return ResponseEntity.ok(accountService.logout(tokenDto.getAccessToken(),userDetails.getAccount()));
+    public ResponseEntity<String> logout(@CurrentUser UserDetailsImpl userDetails, @RequestHeader("accessToken") String accessToken){
+        return ResponseEntity.ok(accountService.logout(accessToken,userDetails.getAccount()));
     }
     @Secured("ROLE_ADMIN")
     @GetMapping("/admin")
