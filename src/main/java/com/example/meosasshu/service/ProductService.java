@@ -32,8 +32,8 @@ public class ProductService {
                 ProductNotFoundException::new
         );
 
-//        String shortDescription = generateSimplifiedDescription(product.getDescription());
-        String shortDescription = "\n\n1. 예시\n2. 예시\n3. 예시";
+        String shortDescription = generateSimplifiedDescription(product.getDescription());
+//        String shortDescription = "\n\n1. 예시\n2. 예시\n3. 예시";
 
         ProductDetailDTO productDetailDTO = ProductDetailDTO.createDto(product);
         productDetailDTO.setShortDescription(shortDescription);
