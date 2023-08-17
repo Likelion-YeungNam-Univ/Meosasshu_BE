@@ -34,10 +34,7 @@ public class CartServiceImpl implements CartService {
     private final AccountRepository accountRepository;
 
     @Override
-    public void addToCart(String accessToken, String refreshToken, CartItemReqDTO cartItemRequest) {
-        String email = jwtUtil.getEmailFromToken(accessToken);
-        Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(UserNotFoundException::new);
+    public void addToCart(Account account, CartItemReqDTO cartItemRequest) {
         Cart cart = cartRepository.findByAccount(account).orElseGet(() -> createCart(account));
 
         Product product = productRepository.findById(cartItemRequest.getProductId())
@@ -50,10 +47,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartItemResDTO> getCartItems(String accessToken, String refreshToken) {
-        String email = jwtUtil.getEmailFromToken(accessToken);
-        Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(UserNotFoundException::new);
+    public List<CartItemResDTO> getCartItems(Account account) {
         Cart cart = cartRepository.findByAccount(account).orElseGet(() -> createCart(account));
 
         List<CartProduct> cartProducts = cartProductRepository.findByCart(cart);
@@ -67,10 +61,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartItemResDTO updateCartItemQuantity(String accessToken, String refreshToken, Long productId, int quantity) {
-        String email = jwtUtil.getEmailFromToken(accessToken);
-        Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(UserNotFoundException::new);
+    public CartItemResDTO updateCartItemQuantity(Account account, Long productId, int quantity) {
         Cart cart = cartRepository.findByAccount(account).orElseGet(() -> createCart(account));
 
         Product product = productRepository.findById(productId)
@@ -85,10 +76,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeCartItem(String accessToken, String refreshToken, Long productId) {
-        String email = jwtUtil.getEmailFromToken(accessToken);
-        Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(UserNotFoundException::new);
+    public void removeCartItem(Account account, Long productId) {
         Cart cart = cartRepository.findByAccount(account)
                 .orElseGet(() -> createCart(account));
 
@@ -102,10 +90,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public OrderFormResDTO getOrderForm(String accessToken, String refreshToken) {
-        String email = jwtUtil.getEmailFromToken(accessToken);
-        Account account = accountRepository.findOneWithAuthoritiesByEmail(email)
-                .orElseThrow(UserNotFoundException::new);
+    public OrderFormResDTO getOrderForm(Account account) {
         Cart cart = cartRepository.findByAccount(account)
                 .orElseGet(() -> createCart(account));
 
@@ -116,6 +101,7 @@ public class CartServiceImpl implements CartService {
         for (CartProduct cartProduct : cartProducts) {
             Product product = cartProduct.getProduct();
             OrderProductDTO orderProductDTO = new OrderProductDTO();
+            orderProductDTO.setProductId(product.getId());
             orderProductDTO.setProductName(product.getName());
             orderProductDTO.setBrand(product.getBrand());
             orderProductDTO.setQuantity(cartProduct.getQuantity());
@@ -132,6 +118,7 @@ public class CartServiceImpl implements CartService {
 
         return orderFormResDTO;
     }
+
 
     private Cart createCart(Account account) {
         Cart cart = new Cart();
