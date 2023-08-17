@@ -32,7 +32,8 @@ public class ProductService {
                 ProductNotFoundException::new
         );
 
-        String shortDescription = generateSimplifiedDescription(product.getDescription());
+//        String shortDescription = generateSimplifiedDescription(product.getDescription());
+        String shortDescription = "\n\n1. 예시\n2. 예시\n3. 예시";
 
         ProductDetailDTO productDetailDTO = ProductDetailDTO.createDto(product);
         productDetailDTO.setShortDescription(shortDescription);
@@ -73,5 +74,9 @@ public class ProductService {
 
     public Page<ProductPagingDTO> getTopSellingProducts(Pageable pageable) {
         return  productRepository.findAllByOrderBySalesCountDesc(pageable).map(ProductPagingDTO::createDto);
+    }
+
+    public Page<ProductPagingDTO> searchProducts(String keyword, Pageable pageable) {
+        return productRepository.findAllByNameContaining(keyword,pageable).map(ProductPagingDTO::createDto);
     }
 }
